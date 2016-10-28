@@ -3,11 +3,11 @@ import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'a
 
 @Component({
   selector: 'app-root',
-  //templateUrl: './app.component.html',
-  template: `
-  <h1>{{ item | async }}</h1>
-  {{item.$key}}
-  `,
+  templateUrl: './app.component.html',
+  // template: `
+  // <h1>{{ item | async }}</h1>
+  // {{item.$key}}
+  // `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
@@ -15,9 +15,16 @@ export class AppComponent {
 
   item: FirebaseObjectObservable<any>;
   constructor(af: AngularFire) {
-    this.item = af.database.object('https://testfirebase-75469.firebaseio.com/test1');
-    console.log(this.item);
-
+    this.item = af.database.object('/test1');
+  }
+  save(newName: string) {
+    this.item.set({ name: newName });
+  }
+  update(newSize: string) {
+    this.item.update({ size: newSize });
+  }
+  delete() {
+    this.item.remove();
   }
 
 }
